@@ -8,6 +8,13 @@ PATH='/usr/bin:/bin'
 IFS=$(printf ' \t\n_'); IFS=${IFS%_}
 export IFS LC_ALL=C LANG=C PATH
 
+# HOW TO USE
+# 
+# 1. source utils.sh
+# 2. followinf variables are set:
+#    OS_INFO, OS, OS_BITS, DIST_NAME
+
+
 # http://qiita.com/UmedaTakefumi/items/fe02d17264de6c78443d
 get-os()
 {
@@ -90,8 +97,8 @@ os-info()
     fi
 }
 
+
 # MAIN
 os-info
-echo $OS_INFO
 
 
