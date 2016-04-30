@@ -17,6 +17,13 @@ get-num-of-cpu-cores()
     NUM_OF_CPUS="`grep processor /proc/cpuinfo | wc -l`"
 }
 
+# HOW TO USE
+# 
+# 1. source utils.sh
+# 2. followinf variables are set:
+#    OS_INFO, OS, OS_BITS, DIST_NAME
+
+
 # http://qiita.com/UmedaTakefumi/items/fe02d17264de6c78443d
 get-os()
 {
@@ -114,9 +121,8 @@ os-info()
     echo ${OS_INFO}
 }
 
+
 # MAIN
 init
-#os-info
-#echo $OS_INFO
 
 
