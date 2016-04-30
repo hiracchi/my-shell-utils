@@ -95,7 +95,7 @@ get-os-bits()
 get-num-of-cpu-cores()
 {
     OS=`get-os`
-    if [ ${OS} = "Mac" ]; then
+    if [ x${OS} = "xMac" ]; then
         NUM_OF_CPUS="sysctl hw.ncpu | awk '{print $2}'"
     else
         NUM_OF_CPUS="`grep processor /proc/cpuinfo | wc -l`"
