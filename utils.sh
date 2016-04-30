@@ -2,11 +2,20 @@
 
 # initialize
 # see p.14
-set -u
-umask 0022
-PATH='/usr/bin:/bin'
-IFS=$(printf ' \t\n_'); IFS=${IFS%_}
-export IFS LC_ALL=C LANG=C PATH
+init()
+{
+    set -u
+    umask 0022
+    PATH='/usr/bin:/bin'
+    IFS=$(printf ' \t\n_'); IFS=${IFS%_}
+    export IFS LC_ALL=C LANG=C PATH
+}
+
+
+get-num-of-cpu-cores()
+{
+    NUM_OF_CPUS="`grep processor /proc/cpuinfo | wc -l`"
+}
 
 # http://qiita.com/UmedaTakefumi/items/fe02d17264de6c78443d
 get-os()
@@ -76,22 +85,38 @@ get-os-bits()
 }
 
 
+get-num-of-cpu-cores()
+{
+    OS=`get-os`
+    if [ ${OS} = "Mac" ]; then
+        NUM_OF_CPUS="sysctl hw.ncpu | awk '{print $2}'"
+    else
+        NUM_OF_CPUS="`grep processor /proc/cpuinfo | wc -l`"
+    fi
+
+    echo ${NUM_OF_CPUS}
+}
+
+
 os-info()
 {
     OS_INFO=""
 
-    get-os
-    get-os-bits
+    OS=`get-os`
+    OS_BITS=`get-os-bits`
     if [ ${OS} = "Linux" ]; then
-        get-linux-dist
-        OS_INFO="${DIST_NAME} ${OS_BITS}"
+        LINUX_DIST_NAME=`get-linux-dist`
+        OS_INFO="${LINUX_DIST_NAME} ${OS_BITS}"
     else
-        OS_INFO="${OS} ${OS_BITS}"
+        OS_INFO="${LINUX_DIST_NAME} ${OS_BITS}"
     fi
+
+    echo ${OS_INFO}
 }
 
 # MAIN
-os-info
-echo $OS_INFO
+init
+#os-info
+#echo $OS_INFO
 
 
