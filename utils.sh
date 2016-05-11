@@ -15,13 +15,9 @@ init()
 get-num-of-cpu-cores()
 {
     NUM_OF_CPUS="`grep processor /proc/cpuinfo | wc -l`"
-}
 
-# HOW TO USE
-# 
-# 1. source utils.sh
-# 2. followinf variables are set:
-#    OS_INFO, OS, OS_BITS, DIST_NAME
+    echo ${NUM_OF_CPUS}
+}
 
 
 # http://qiita.com/UmedaTakefumi/items/fe02d17264de6c78443d
@@ -37,6 +33,8 @@ get-os()
         echo "Your platform ($(uname -a)) is not supported."
         exit 1
     fi
+
+    echo ${OS}
 }
 
 
@@ -80,6 +78,8 @@ get-linux-dist()
        echo "unkown distribution"
        DIST_NAME="unkown"
     fi
+
+    echo ${DIST_NAME}
 }
 
 
@@ -89,6 +89,8 @@ get-os-bits()
     if [ -x "`which uname`" ]; then
         OS_BITS=`uname -m`
     fi
+
+    echo ${OS_BITS}
 }
 
 
@@ -111,7 +113,7 @@ os-info()
 
     OS=`get-os`
     OS_BITS=`get-os-bits`
-    if [ ${OS} = "Linux" ]; then
+    if [ x${OS} = xLinux ]; then
         LINUX_DIST_NAME=`get-linux-dist`
         OS_INFO="${LINUX_DIST_NAME} ${OS_BITS}"
     else
@@ -124,5 +126,4 @@ os-info()
 
 # MAIN
 init
-
 
