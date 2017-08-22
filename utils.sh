@@ -125,5 +125,5 @@ os-info()
 
 
 # MAIN
-init
+# init
 
